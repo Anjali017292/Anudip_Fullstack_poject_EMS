@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EMS | Admin Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="dashboard-page">
+
+<div class="dashboard-layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-logo">E</div>
+            <div>
+                <h2>EMS Portal</h2>
+                <span>Management Suite</span>
+            </div>
+        </div>
+
+        <div class="menu-label">MAIN MENU</div>
+
+        <nav class="sidebar-nav">
+            <a href="/" class="nav-link active">
+                <span class="nav-icon">▦</span>
+                Dashboard
+            </a>
+
+            <a href="/employees" class="nav-link">
+                <span class="nav-icon">♙</span>
+                Employees
+            </a>
+
+            <a href="/departments" class="nav-link">
+                <span class="nav-icon">▤</span>
+                Departments
+            </a>
+
+            <a href="/projects" class="nav-link">
+                <span class="nav-icon">▣</span>
+                Projects
+            </a>
+
+            <a href="/tasks" class="nav-link">
+                <span class="nav-icon">✓</span>
+                Tasks
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="support-card">
+                <div class="support-icon">✦</div>
+                <h4>Stay organized</h4>
+                <p>Manage your team and projects from one place.</p>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="admin-avatar">A</div>
+                <div>
+                    <strong>Administrator</strong>
+                    <span>System Overview</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+
+        <!-- Top Bar -->
+        <header class="topbar">
+            <div>
+                <span class="breadcrumb">Workspace / Dashboard</span>
+                <h2>Overview</h2>
+            </div>
+
+            <div class="topbar-right">
+                <div class="system-status">
+                    <span class="status-dot"></span>
+                    System Overview
+                </div>
+
+                <div class="profile-avatar">A</div>
+            </div>
+        </header>
+
+        
+
+        <!-- Summary Cards -->
+        <section class="section-block">
+            <div class="section-heading">
+                <div>
+                    <h2>Organization Overview</h2>
+                    <p>A quick summary of your management system.</p>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <div class="stat-icon icon-blue">♙</div>
+                        <span class="stat-label">WORKFORCE</span>
+                    </div>
+
+                    <p class="stat-title">Total Employees</p>
+                    <h3>{{ total_employees }}</h3>
+
+                    <div class="stat-footer">
+                        <span class="mini-dot blue-dot"></span>
+                        Employee records
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <div class="stat-icon icon-purple">▤</div>
+                        <span class="stat-label">STRUCTURE</span>
+                    </div>
+
+                    <p class="stat-title">Departments</p>
+                    <h3>{{ total_departments }}</h3>
+
+                    <div class="stat-footer">
+                        <span class="mini-dot purple-dot"></span>
+                        Organizational units
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <div class="stat-icon icon-green">▣</div>
+                        <span class="stat-label">DELIVERY</span>
+                    </div>
+
+                    <p class="stat-title">Total Projects</p>
+                    <h3>{{ total_projects }}</h3>
+
+                    <div class="stat-footer">
+                        <span class="mini-dot green-dot"></span>
+                        Project records
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-top">
+                        <div class="stat-icon icon-orange">✓</div>
+                        <span class="stat-label">PRODUCTIVITY</span>
+                    </div>
+
+                    <p class="stat-title">Total Tasks</p>
+                    <h3>{{ total_tasks }}</h3>
+
+                    <div class="stat-footer">
+                        <span class="mini-dot orange-dot"></span>
+                        Task records
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="section-block">
+            <div class="section-heading">
+                <div>
+                    <h2>Quick Actions</h2>
+                    <p>Access your most-used management modules.</p>
+                </div>
+            </div>
+
+            <div class="quick-actions-grid">
+
+                <a href="/employees" class="quick-action">
+                    <div class="action-icon action-blue">＋</div>
+                    <div class="action-text">
+                        <h3>Manage Employees</h3>
+                        <p>View and maintain employee records.</p>
+                    </div>
+                    <span class="action-arrow">→</span>
+                </a>
+
+                <a href="/departments" class="quick-action">
+                    <div class="action-icon action-purple">▤</div>
+                    <div class="action-text">
+                        <h3>Manage Departments</h3>
+                        <p>Organize departments and locations.</p>
+                    </div>
+                    <span class="action-arrow">→</span>
+                </a>
+
+                <a href="/projects" class="quick-action">
+                    <div class="action-icon action-green">▣</div>
+                    <div class="action-text">
+                        <h3>Manage Projects</h3>
+                        <p>Track projects and employee assignments.</p>
+                    </div>
+                    <span class="action-arrow">→</span>
+                </a>
+
+                <a href="/tasks" class="quick-action">
+                    <div class="action-icon action-orange">✓</div>
+                    <div class="action-text">
+                        <h3>Manage Tasks</h3>
+                        <p>Open the task management module.</p>
+                    </div>
+                    <span class="action-arrow">→</span>
+                </a>
+
+            </div>
+        </section>
+
+        <!-- Bottom Information -->
+        <section class="bottom-panel">
+            <div class="bottom-icon">✦</div>
+            <div>
+                <h3>Your workspace, all in one place</h3>
+                <p>
+                    Use the navigation menu to manage your workforce,
+                    departments, projects and tasks.
+                </p>
+            </div>
+            <span class="workspace-tag">EMS WORKSPACE</span>
+        </section>
+
+        <footer class="dashboard-footer">
+            <span>Employee Management System</span>
+            <span>Admin Dashboard</span>
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>
