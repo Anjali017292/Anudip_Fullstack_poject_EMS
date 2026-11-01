@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Department | EMS</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <aside class="sidebar">
+        <h2>EMS</h2>
+        <a href="/">Dashboard</a>
+        <a href="/employees">Employees</a>
+        <a class="active" href="/departments">Departments</a>
+        <a href="/projects">Projects</a>
+        <a href="/tasks">Tasks</a>
+    </aside>
+
+    <main class="content">
+        <h1>Add Department</h1>
+        <p>Create a new department in your organization.</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <div class="alert {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endwith %}
+
+        <form class="form-card" method="POST">
+            <div class="form-grid">
+                <div class="field full-width">
+                    <label for="dept_name">Department Name *</label>
+                    <input id="dept_name"
+                           type="text"
+                           name="dept_name"
+                           placeholder="e.g. Human Resources"
+                           maxlength="100"
+                           required>
+                </div>
+
+                <div class="field full-width">
+                    <label for="location">Location</label>
+                    <input id="location"
+                           type="text"
+                           name="location"
+                           placeholder="e.g. Noida, Uttar Pradesh"
+                           maxlength="150">
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn btn-primary" type="submit">
+                    Save Department
+                </button>
+                <a class="btn btn-cancel"
+                   href="{{ url_for('department_list') }}">
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </main>
+</body>
+</html>
