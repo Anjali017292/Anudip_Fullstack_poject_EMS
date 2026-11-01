@@ -1,0 +1,62 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="form-container">
+    <h1>Edit Project</h1>
+    <p>Update project details and employee assignments.</p>
+
+    <form method="POST"
+          action="{{ url_for('edit_project',
+          project_id=project.project_id) }}">
+
+        <label for="project_name">Project Name</label>
+        <input type="text" id="project_name" name="project_name"
+               value="{{ project.project_name }}" required>
+
+        <label for="description">Description</label>
+        <textarea id="description" name="description">{{ project.description or '' }}</textarea>
+
+        <label for="start_date">Start Date</label>
+        <input type="date" id="start_date" name="start_date"
+               value="{{ project.start_date or '' }}">
+
+        <label for="end_date">End Date</label>
+        <input type="date" id="end_date" name="end_date"
+               value="{{ project.end_date or '' }}">
+
+        <label for="status">Project Status</label>
+        <select id="status" name="status" required>
+            {% for status in ['Planned', 'In Progress', 'Completed', 'On Hold'] %}
+                <option value="{{ status }}"
+                    {% if project.status == status %}selected{% endif %}>
+                    {{ status }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <label>Assign Employees</label>
+        <div class="employee-selection">
+            {% for employee in employees %}
+                <label class="checkbox-label">
+                    <input type="checkbox" name="employees"
+                           value="{{ employee.emp_id }}"
+                           {% if employee.emp_id in assigned_employee_ids %}checked{% endif %}>
+                    {{ employee.name }}
+                </label>
+            {% else %}
+                <p>No employees available. Add employees first.</p>
+            {% endfor %}
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+                Update Project
+            </button>
+            <a href="{{ url_for('projects') }}" class="btn btn-cancel">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}
