@@ -1,0 +1,104 @@
+
+{% extends "base.html" %}
+
+{% block title %}Add Task | EMS{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+    <div>
+        <h1>Create New Task</h1>
+        <p>Add a task and assign it to a project or employee.</p>
+    </div>
+
+    <a href="{{ url_for('tasks') }}" class="btn btn-secondary">
+        Back to Tasks
+    </a>
+</div>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">{{ message }}</div>
+    {% endfor %}
+{% endwith %}
+
+<div class="task-form-card">
+    <form method="POST" action="{{ url_for('add_task') }}">
+
+        <div class="task-form-grid">
+
+            <div class="form-group full-width">
+                <label for="task_name">Task Name *</label>
+                <input type="text" id="task_name" name="task_name"
+                       placeholder="Enter task name" required>
+            </div>
+
+            <div class="form-group full-width">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" rows="4"
+                          placeholder="Describe the task..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="project_id">Project</label>
+                <select id="project_id" name="project_id">
+                    <option value="">No project assigned</option>
+                    {% for project in projects %}
+                        <option value="{{ project.project_id }}">
+                            {{ project.project_name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="emp_id">Assign Employee</label>
+                <select id="emp_id" name="emp_id">
+                    <option value="">No employee assigned</option>
+                    {% for employee in employees %}
+                        <option value="{{ employee.emp_id }}">
+                            {{ employee.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="due_date">Due Date</label>
+                <input type="date" id="due_date" name="due_date">
+            </div>
+
+            <div class="form-group">
+                <label for="priority">Priority</label>
+                <select id="priority" name="priority">
+                    <option value="Low">Low</option>
+                    <option value="Medium" selected>Medium</option>
+                    <option value="High">High</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select id="status" name="status">
+                    <option value="Pending" selected>Pending</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Completed">Completed</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="task-form-actions">
+            <a href="{{ url_for('tasks') }}" class="btn btn-secondary">
+                Cancel
+            </a>
+
+            <button type="submit" class="btn btn-primary">
+                Save Task
+            </button>
+        </div>
+
+    </form>
+</div>
+
+{% endblock %}
