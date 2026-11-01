@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employees | EMS</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <aside class="sidebar">
+        <h2>EMS</h2>
+        <a href="/">Dashboard</a>
+        <a class="active" href="/employees">Employees</a>
+        <a href="/">Departments</a>
+        <a href="/">Projects</a>
+        <a href="/">Tasks</a>
+    </aside>
+
+    <main class="content">
+        <div class="page-header">
+            <div>
+                <h1>Employee Management</h1>
+                <p>Manage your employee records.</p>
+            </div>
+            <a class="btn btn-primary"
+               href="{{ url_for('add_employee') }}">+ Add Employee</a>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <div class="alert {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endwith %}
+
+        <div class="table-card">
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Job Title</th>
+                            <th>Department</th>
+                            <th>Salary</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for emp in employees %}
+                        <tr>
+                            <td>{{ emp.emp_id }}</td>
+                            <td>{{ emp.name }}</td>
+                            <td>{{ emp.email or '-' }}</td>
+                            <td>{{ emp.job_title or '-' }}</td>
+                            <td>{{ emp.dept_name or 'Unassigned' }}</td>
+                            <td>
+                                {% if emp.salary is not none %}
+                                    {{ "%.2f"|format(emp.salary) }}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div class="actions">
+                                    <a class="btn btn-edit"
+                                       href="{{ url_for('edit_employee',
+                                       emp_id=emp.emp_id) }}">Edit</a>
+
+                                    <form action="{{ url_for('delete_employee',
+                                          emp_id=emp.emp_id) }}"
+                                          method="POST"
+                                          onsubmit="return confirm('Delete this employee?');">
+                                        <button class="btn btn-delete"
+                                                type="submit">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="7" class="empty">
+                                No employees found. Add your first employee!
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <a class="back-link" href="/">← Back to Dashboard</a>
+    </main>
+</body>
+</html>
